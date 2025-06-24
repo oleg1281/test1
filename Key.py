@@ -1,0 +1,44 @@
+import time
+import random
+import      pyautogui
+from datetime import datetime
+
+SAFE_KEYS = ['shift', 'ctrl', 'alt', 'tab', 'capslock', 'numlock']
+
+def move_mouse_randomly():
+    screen_width, screen_height = pyautogui.size()
+    x = random.randint(100, screen_width - 100)
+    y = random.randint( 100, screen_height - 100)
+    pyautogui.moveTo(x, y, duration=0.3)
+
+def click_mouse_randomly():
+    r = random.random()
+    if r < 0.3:
+        pyautogui.click()
+    elif r < 0.4:
+        pyautogui.click(button='right')
+
+def press_key_randomly():
+    if random.random() <    0.4:
+        key = random.choice(SAFE_KEYS)
+        pyautogui.press(key)
+
+def stay_active(interval=10, shutdown_hour=20):
+    print("Имитация активности   началась. Для выхода нажми Ctrl+C.")
+    try:
+        while True:
+            current_time = datetime.now()
+            if current_time.hour >= shutdown_hour:
+                print(f"\nВремя {current_time.strftime('%H:%M')}. Выключение по расписанию.")
+                break
+            move_mouse_randomly()
+            click_mouse_randomly()
+            press_key_randomly()
+            time.sleep(interval)
+    except KeyboardInterrupt:
+        print("\nОстановлено пользователем.")
+
+if __name__ == "__main__":
+    stay_active(interval=10, shutdown_hour=20)
+
+
