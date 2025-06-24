@@ -22,7 +22,7 @@ for var in ds.data_vars:
     da = ds[var]
     if "time" in da.dims:
         dims = da.dims
-            shape = list(da.shape)
+        shape = list(da.shape)
         shape[dims.index("time")] = n_new  # заменим размер оси времени
 
         # координаты, кроме "datetime", иначе будет ошибка при concat
@@ -52,12 +52,12 @@ datetime_expanded = np.expand_dims(new_datetime_full, axis=0)
 # Создаём итоговый Dataset
 ds_out = xr.Dataset(new_data_vars)
 ds_out = ds_out.assign_coords(time=("time", new_time_full))
-ds_out = ds_out.assign_coords(datet ime=(("batch", "time"), datetime_expanded))
+ds_out = ds_out.assign_coords(datetime=(("batch", "time"), datetime_expanded))
 
 # если batch была координатой
 if "batch" in ds.coords:
     ds_out = ds_out.assign_coords(batch=ds.coords["batch"])
 
 # Сохраняем результат
-ds_out.to_netc  df(f"w:/Postprocesing/Oleh Bedenok/GRAPHCAST/NOAA/TEST_Graphcast_14,05,2025-31,05,2025/dataset_NOAA/out_file.nc", format="NETCDF3_CLASSIC")
+ds_out.to_netcdf(f"w:/Postprocesing/Oleh Bedenok/GRAPHCAST/NOAA/TEST_Graphcast_14,05,2025-31,05,2025/dataset_NOAA/out_file.nc", format="NETCDF3_CLASSIC")
 print("✅ Готово: данные расширены и сохранены в delete/out_file_patch2.nc")
