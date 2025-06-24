@@ -61,3 +61,4 @@ if "batch" in ds.coords:
 # Сохраняем результат
 ds_out.to_netcdf(f"w:/Postprocesing/Oleh Bedenok/GRAPHCAST/NOAA/TEST_Graphcast_14,05,2025-31,05,2025/dataset_NOAA/out_file.nc", format="NETCDF3_CLASSIC")
 print("✅ Готово: данные расширены и сохранены в delete/out_file_patch2.nc")
+#
